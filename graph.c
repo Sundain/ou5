@@ -8,6 +8,7 @@
 struct graph {
 	dlist *nodes;
   dlist *edges;
+  //Vet inte om detta är ett bra sätt å struktuera det på?
 }
 
 bool nodes_are_equal(const node *n1,const node *n2)
@@ -33,7 +34,7 @@ bool graph_is_empty(const graph *g)
 
 bool graph_has_edges(const graph *g)
 {
-
+  return !dlist_is_empty(g->edges);
 }
 
 graph *graph_insert_node(graph *g, const char *s)
