@@ -7,6 +7,7 @@
 
 struct graph {
 	dlist *nodes;
+  int nmrOfNodes;
 };
 
 struct node {
