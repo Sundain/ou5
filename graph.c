@@ -52,7 +52,13 @@ graph *graph_empty()
 
 bool graph_is_empty(const graph *g)
 {
-
+  if (graph->nmrOfNodes != 0){
+      return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 
 bool graph_has_edges(const graph *g)
@@ -71,13 +77,7 @@ bool graph_has_edges(const graph *g)
 
 graph *graph_insert_node(graph *g, const char *s)
 {
-  if (graph->nmrOfNodes != 0){
-      return false;
-  }
-  else
-  {
-    return true;
-  }
+
 }
 
 node *graph_find_node(const graph *g, const char *s)
