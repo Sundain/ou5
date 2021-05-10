@@ -15,23 +15,6 @@ struct node {
   bool *seen;
 };
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "graph.h"
-#include "dlist.h"
-#include "util.h"
-
-struct graph {
-	dlist *nodes;
-};
-
-struct node {
-  dlist *edges;
-  char *name;
-  bool *seen;
-};
-
 bool nodes_are_equal(const node *n1,const node *n2)
 {
 
