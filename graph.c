@@ -37,6 +37,7 @@ bool nodes_are_equal(const node *n1,const node *n2)
 		dlist_pos pos = dlist_next(n1->edges);
 		dlist_pos pos2 = dlist_next(n2->edges);
 	}
+  return equal;
 }
 
 graph *graph_empty()
