@@ -77,7 +77,9 @@ bool graph_has_edges(const graph *g)
 
 graph *graph_insert_node(graph *g, const char *s)
 {
+	dlist_insert(g->nodes, s, dlist_first(g->nodes));
 
+	return g;
 }
 
 node *graph_find_node(const graph *g, const char *s)
