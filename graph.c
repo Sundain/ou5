@@ -83,7 +83,7 @@ graph *graph_insert_node(graph *g, const char *s)
 
 node *graph_find_node(const graph *g, const char *s)
 {
-  dlist_pos pos = dlist_first(g->nodes)
+  dlist_pos pos = dlist_first(g->nodes);
 
   while (!dlist_is_end(g->nodes, pos)) {
     struct node n = dlist_inspect(g->nodes, pos);
