@@ -104,14 +104,7 @@ bool graph_node_is_seen(const graph *g, const node *n)
 		struct node m = dlist_inspect(g->nodes,pos);
 		if(strcomp(m->name,n->name))
 		{
-			if (!n->seen)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return n->seen;
 		}
 	}
 	//If node not found return false
