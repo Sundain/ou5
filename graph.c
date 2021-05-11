@@ -12,8 +12,8 @@ struct graph {
 
 struct node {
   dlist *edges;
-  char *name;
-  bool *seen;
+  char name;
+  bool seen;
 };
 
 bool nodes_are_equal(const node *n1,const node *n2)
@@ -72,7 +72,11 @@ bool graph_has_edges(const graph *g)
 
 graph *graph_insert_node(graph *g, const char *s)
 {
-	dlist_insert(g->nodes, s, dlist_first(g->nodes));
+	struct node n = calloc(1, sizeof(node));
+	n->edges = dlist_empty(NULL);
+	n->name = s;
+	n->seen = false;
+	dlist_insert(g->nodes, n, dlist_first(g->nodes));
 
 	return g;
 }
