@@ -98,7 +98,14 @@ node *graph_find_node(const graph *g, const char *s)
 
 bool graph_node_is_seen(const graph *g, const node *n)
 {
-
+		if (!n->seen)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 }
 
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
