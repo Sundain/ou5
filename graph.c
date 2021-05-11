@@ -53,13 +53,7 @@ graph *graph_empty()
 
 bool graph_is_empty(const graph *g)
 {
-  if (graph->nmrOfNodes != 0){
-      return false;
-  }
-  else
-  {
-    return true;
-  }
+	return g->nmrOfNodes == 0;
 }
 
 bool graph_has_edges(const graph *g)
