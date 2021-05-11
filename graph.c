@@ -58,7 +58,7 @@ bool graph_is_empty(const graph *g)
 
 bool graph_has_edges(const graph *g)
 {
-  dlist_pos pos = dlist_first(g->nodes)
+  dlist_pos pos = dlist_first(g->nodes);
 
   while (!dlist_is_end(g->nodes, pos)) {
     struct node n = dlist_inspect(g->nodes, pos);
@@ -108,12 +108,12 @@ bool graph_node_is_seen(const graph *g, const node *n)
 		}
 	}
 	//If node not found return false
-	return false
+	return false;
 }
 
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
 {
-  n->seen = true;
+  n->seen = seen;
   dlist_pos pos = dlist_first(g->nodes);
 
   while (!dlist_is_end(g->nodes, pos)) {
@@ -145,7 +145,7 @@ graph *graph_reset_seen(graph *g)
 	//go to next node
 	pos = dlist_next(g->nodes, pos);
 	}
-	return g
+	return g;
 }
 
 graph *graph_insert_edge(graph *g, node *n1, node *n2)
