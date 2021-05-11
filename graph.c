@@ -18,26 +18,19 @@ struct node {
 
 bool nodes_are_equal(const node *n1,const node *n2)
 {
-	dlist_pos pos = dlist_first(n1->edges);
-	dlist_pos pos2 = dlist_first(n2->edges);
-
-
-	while (!dlist_is_end(n1->edges,pos) && !dlist_is_end(n2->edges,pos2)
-	{
-		if (pos1 != pos2)
+		if (!strcomp(n1->name,n2->name));
 		{
 			return false;
 		}
+<<<<<<< HEAD
 
 		if !strcomp(n1->name, n2->name);
+=======
+		else
+>>>>>>> 7b0f34f6de0136d6704e6cdd3ae1791ae00d5045
 		{
-			return false;
+  		return true;
 		}
-
-		dlist_pos pos = dlist_next(n1->edges);
-		dlist_pos pos2 = dlist_next(n2->edges);
-	}
-  return true;
 }
 
 graph *graph_empty()
