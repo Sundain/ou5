@@ -127,8 +127,6 @@ graph *graph_reset_seen(graph *g)
 		if (n->seen)
 		{
 			n->seen=false
-			dlist_remove(g->nodes, pos);
-			dlist_insert(g->nodes, n, pos);
 		}
 	//go to next node
 	pos = dlist_next(g->nodes, pos);
