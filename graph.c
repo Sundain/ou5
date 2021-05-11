@@ -29,7 +29,7 @@ bool nodes_are_equal(const node *n1,const node *n2)
 			return false;
 		}
 
-		if (!strcomp(n1->name,n2->name));
+		if !strcomp(n1->name, n2->name);
 		{
 			return false;
 		}
