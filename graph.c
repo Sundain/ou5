@@ -22,14 +22,14 @@ bool nodes_are_equal(const node *n1,const node *n2)
 	dlist_pos pos2 = dlist_first(n2->edges);
 
 
-	while (!dlist_is_end(n1->edges,pos), equal) && !dlist_is_end(n2->edges,pos2), equal)
+	while (!dlist_is_end(n1->edges,pos) && !dlist_is_end(n2->edges,pos2)
 	{
 		if (pos1 != pos2)
 		{
 			return false;
 		}
 
-		if (dlist_inspect(n1->edges,pos) != dlist_inspect(n2->edges,pos2));
+		if (!strcomp(dlist_inspect(n1->name,pos),dlist_inspect(n2->name,pos2)));
 		{
 			return false;
 		}
