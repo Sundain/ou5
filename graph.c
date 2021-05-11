@@ -62,7 +62,7 @@ bool graph_has_edges(const graph *g)
 
   while (!dlist_is_end(g->nodes, pos)) {
     struct node n = dlist_inspect(g->nodes, pos);
-    if (!dlist_is_empty(n)) {
+    if (!dlist_is_empty(n->edges)) {
       return true;
     }
     pos = dlist_next(g->nodes, pos);
