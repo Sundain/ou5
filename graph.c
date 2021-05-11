@@ -98,14 +98,25 @@ node *graph_find_node(const graph *g, const char *s)
 
 bool graph_node_is_seen(const graph *g, const node *n)
 {
-		if (!n->seen)
+	dlist_pos pos = dlist_first(g->nodes);
+
+	while (!dlist_is_end(g->nodes, pos))
+	{
+		struct node m = dlist_inspect(g->nodes,pos);
+		if(strcomp(m->name,n->name))
 		{
-			return false;
+			if (!n->seen)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
-		else
-		{
-			return true;
-		}
+	}
+	//If node not found return false
+	return false
 }
 
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
