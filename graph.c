@@ -138,7 +138,22 @@ graph *graph_node_set_seen(graph *g, node *n, bool seen)
 
 graph *graph_reset_seen(graph *g)
 {
+	dlist_pos pos = dlist_first(g->nodes);
 
+	while (!dlist_is_end(g->nodes, pos))
+	{
+		struct node n = dlist_inspect(g->nodes,pos);
+
+		if (n->seen)
+		{
+			n->seen=false
+			dlist_remove(g->nodes, pos);
+			dlist_insert(g->nodes, n, pos);
+		}
+	//go to next node
+	pos = dlist_next(g->nodes, pos);
+	}
+	return g
 }
 
 graph *graph_insert_edge(graph *g, node *n1, node *n2)
