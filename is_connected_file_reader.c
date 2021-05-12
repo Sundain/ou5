@@ -35,7 +35,7 @@ int main(void) {
         memset(sub, 0, strlen(sub));
         j++;
         int k = 0;
-        while(str[j] != ' ' && str[j] != '#') {
+        while(str[j] != ' ' && str[j] != '#' && str[j] != '\n') {
           sub[k] = str[j];
           j++;
           k++;
