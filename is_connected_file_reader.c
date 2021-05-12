@@ -26,13 +26,13 @@ int main(void) {
       else if(str[0] != '#' || str[0] != ' ') {
         char sub[3];
 
-        for (size_t i = 0; i < 3; i++) {
-          sub[i] = str[i];
+        for (size_t j = 0; j < 3; j++) {
+          sub[j] = str[j];
         }
         strcpy(origins[i], sub);
 
-        for (size_t i = 0; i < 3; i++) {
-          sub[i] = str[i+4];
+        for (size_t j = 0; j < 3; j++) {
+          sub[j] = str[j+4];
         }
         strcpy(destinations[i], sub);
 
