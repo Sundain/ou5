@@ -10,34 +10,41 @@ int main(void) {
 
   FILE *fp;
   char str[MAXCHAR];
-  char* filename = "c:\\Users\\Adden\\Desktop\\doan\\OU5\\airmap1.map";
+  char* filename = "c:\\Users\\Adden\\Desktop\\doan\\OU5\\airmap2.map";
 
   fp = fopen(filename, "r");
 
   int i = 0;
   int number_of_edges = -1;
-  char origins[MAX_NUMBER_OF_EDGES][4];
-  char destinations[MAX_NUMBER_OF_EDGES][4];
+  char origins[MAX_NUMBER_OF_EDGES][41];
+  char destinations[MAX_NUMBER_OF_EDGES][41];
   while (fgets(str, MAXCHAR, fp) != NULL) {
 
-      if((str[0] != '#' || str[0] != ' ') && number_of_edges == -1){
+    if (str[0] != '#' && str[0] != ' ') {
+      if(number_of_edges == -1){
         number_of_edges = atoi(str);
       }
-      else if(str[0] != '#' || str[0] != ' ') {
-        char sub[3];
-
-        for (size_t j = 0; j < 3; j++) {
+      else {
+        char sub[41];
+        int j = 0;
+        while(str[j] != ' ') {
           sub[j] = str[j];
+          j++;
         }
         strcpy(origins[i], sub);
-
-        for (size_t j = 0; j < 3; j++) {
-          sub[j] = str[j+4];
+        memset(sub, 0, strlen(sub));
+        j++;
+        int k = 0;
+        while(str[j] != ' ' && str[j] != '#') {
+          sub[k] = str[j];
+          j++;
+          k++;
         }
         strcpy(destinations[i], sub);
-
+        memset(sub, 0, strlen(sub));
         i++;
       }
+    }
   }
   fclose(fp);
 
