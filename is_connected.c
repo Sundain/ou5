@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,3 +66,5 @@ graph BreadthFirst(graph g, node n)
       }
     }
 }
+=======
+>>>>>>> af3d847e333ba6463ce44387cda2118e52fff5e6
