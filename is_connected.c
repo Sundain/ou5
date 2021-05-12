@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,6 +64,13 @@ graph BreadthFirst(graph g, node n)
         q = queue_enqueue(q,m);
       }
     }
+  }
+  return g;
 }
-=======
->>>>>>> af3d847e333ba6463ce44387cda2118e52fff5e6
+
+bool compNodes(graph *g, node *n1, node *n2)
+{
+  return graph_node_is_seen(const graph *g, const node *n1) == graph_node_is_seen(const graph *g, const node *n2);
+}
+//reset seen between runs:
+g=graph_reset_seen(g);
