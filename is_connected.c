@@ -8,10 +8,36 @@
 #define MAXCHAR 1000
 
 int main(void) {
+
+  while(input == 'quit')
+  {
+    if (src == dest || find_path(g, src, dest) )
+    {
+      printf("There is a path from %s to %s.\n", src->name, dest->name);
+    }
+    else
+    {
+      printf("There is no path from %s to %s.\n", src->name, dest->name);
+    }
+    //reset seen status between runs:
+    g=graph_reset_seen(g);
+
+  }
+  printf("Normal exit.\n");
+
   return 0;
 }
 
-graph BreadthFirst(graph g, node n)
+bool find_path(graph *g, node *src, node *dest)
+{
+  //travsering the graph
+  g=BreadthFirst(g,src);
+
+  //return if the destination have been marked as seen
+  return dest_found(g, dest);
+}
+
+graph BreadthFirst(graph *g, node *n)
 {
   Queue q = queue_empty(NULL);
   g=graph_node_is_seen(g, n, true); // (n,g)←seen(n,g) , mark the node as seen.
@@ -32,13 +58,10 @@ graph BreadthFirst(graph g, node n)
         q = queue_enqueue(q,m);
       }
     }
-  }
   return g;
 }
 
-bool compNodes(graph *g, node *n1, node *n2)
+bool dest_found(graph *g, node *n2)
 {
-  return graph_node_is_seen(const graph *g, const node *n1) == graph_node_is_seen(const graph *g, const node *n2);
+  return graph_node_is_seen(const graph *g, const node *n2);
 }
-//reset seen between runs:
-g=graph_reset_seen(g);
