@@ -90,7 +90,7 @@ graph *graph_insert_node(graph *g, const char *s)
 {
 	struct node *n = calloc(1, sizeof(node));
 	n->edges = dlist_empty(NULL);
-	strcpy(s, n->name);
+	strcpy(n->name, *s);
 	n->seen = false;
 	g->nmrOfNodes++;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
