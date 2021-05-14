@@ -1,8 +1,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "string.h"
+//#include "queue.h"
 #include "graph.h"
+#include "dlist.h"
 
 #define MAXCHAR 1000
 
@@ -52,27 +54,23 @@ int main(int argc, char** argv) {
 
   fclose(fp);
 
+  graph *g = graph_empty(10);
+
   for (size_t i = 0; i < number_of_edges; i++) {
-    printf("%s %s\n", origins[i], destinations[i]);
+    if (graph_find_node(g, origins[i]) != NULL)
+      graph_insert_node(g, origins[i]);
   }
 
-  // graph g = graph_empty(number_of_edges);
-  //
-  // for (size_t i = 0; i < number_of_edges; i++) {
-  //   if (graph_find_node(g, origins[i]) != NULL)
-  //     graph_insert_node(g, origins[i]);
-  // }
-  //
-  // for (size_t i = 0; i < number_of_edges; i++) {
-  //   if (graph_find_node(g, destinations[i]) != NULL)
-  //     graph_insert_node(g, destinations[i]);
-  // }
-  //
-  // for (size_t i = 0; i < number_of_edges; i++) {
-  //   struct node n1 = graph_find_node(g, origins[i]);
-  //   struct node n2 = graph_find_node(g, destinations[i]);
-  //   graph_insert_edge(g, n1, n2);
-  // }
+  for (size_t i = 0; i < number_of_edges; i++) {
+    if (graph_find_node(g, destinations[i]) != NULL)
+      graph_insert_node(g, destinations[i]);
+  }
+
+  for (size_t i = 0; i < number_of_edges; i++) {
+    struct node *n1 = graph_find_node(g, origins[i]);
+    struct node *n2 = graph_find_node(g, destinations[i]);
+    graph_insert_edge(g, n1, n2);
+  }
 
   return 0;
 }
