@@ -146,28 +146,6 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2);
 graph *graph_delete_node(graph *g, node *n);
 
 /**
- * graph_delete_edge() - Remove an edge from the graph.
- * @g: Graph to manipulate.
- * @n1: Source node (pointer) for the edge.
- * @n2: Destination node (pointer) for the edge.
- *
- * Returns: The modified graph.
- *
- * NOTE: Undefined if the edge is not in the graph.
- */
-graph *graph_delete_edge(graph *g, node *n1, node *n2);
-
-/**
- * graph_choose_node() - Return an arbitrary node from the graph.
- * @g: Graph to inspect.
- *
- * Returns: A pointer to an arbitrayry node.
- *
- * NOTE: The return value is undefined for an empty graph.
- */
-node *graph_choose_node(const graph *g);
-
-/**
  * graph_neighbours() - Return a list of neighbour nodes.
  * @g: Graph to inspect.
  * @n: Node to get neighbours for.
