@@ -53,7 +53,7 @@ bool graph_has_edges(const graph *g)
 
 graph *graph_insert_node(graph *g, const char *s)
 {
-	struct node n = calloc(1, sizeof(node));
+	struct node *n = calloc(1, sizeof(node));
 	n->edges = dlist_empty(NULL);
 	n->name = s;
 	n->seen = false;
