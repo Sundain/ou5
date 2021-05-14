@@ -4,6 +4,7 @@
 #include "string.h"
 #include "queue.h"
 #include "graph.h"
+#include "dlist.h"
 
 #define MAXCHAR 1000
 
