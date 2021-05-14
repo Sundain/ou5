@@ -76,9 +76,6 @@ bool graph_is_empty(const graph *g)
 	return dlist_is_empty(g->nodes);
 }
 
-<<<<<<< HEAD
-
-=======
 /**
  * graph_insert_node() - Inserts a node with the given name into the graph.
  * @g: Graph to manipulate.
@@ -89,16 +86,11 @@ bool graph_is_empty(const graph *g)
  *
  * Returns: The modified graph.
  */
->>>>>>> eeccf8c0aa7eaafb8e65a234112b637fae46a46f
 graph *graph_insert_node(graph *g, const char *s)
 {
 	struct node *n = calloc(1, sizeof(node));
 	n->edges = dlist_empty(NULL);
-<<<<<<< HEAD
-  n->name = (char*) s;
-=======
 	n->name = (char*) s;
->>>>>>> eeccf8c0aa7eaafb8e65a234112b637fae46a46f
 	n->seen = false;
 	g->nmrOfNodes++;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
@@ -199,16 +191,18 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  */
 dlist *graph_neighbours(const graph *g,const node *n)
 {
-	struct dlist *copy = calloc(1,sizeof(n->edges));
+
+	struct dlist *namesOfNeighbours = calloc(1,sizeof(n->edges));
 	dlist_pos pos = dlist_first(g->nodes);
+
 	while (!dlist_is_end(n->edges,pos)){
 		struct node *n = dlist_inspect(g->nodes,pos);
-		dlist_insert(copy, n, pos);
+		dlist_insert(namesOfNeighbours, n->name, pos);
 
 		pos = dlist_next(g->nodes, pos);
 
 	}
-	return copy;
+	return namesOfNeighbours;
 }
 
 /**
