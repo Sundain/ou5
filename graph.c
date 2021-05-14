@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "graph.h"
 #include "dlist.h"
@@ -106,11 +107,6 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 {
   dlist_insert(n1->edges, n2->name, dlist_first(n1->edges));
   return g;
-}
-
-graph *graph_delete_node(graph *g, node *n)
-{
-
 }
 
 dlist *graph_neighbours(const graph *g,const node *n)

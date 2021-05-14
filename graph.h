@@ -135,17 +135,6 @@ graph *graph_reset_seen(graph *g);
 graph *graph_insert_edge(graph *g, node *n1, node *n2);
 
 /**
- * graph_delete_node() - Remove a node from the graph.
- * @g: Graph to manipulate.
- * @n: Node to remove from the graph.
- *
- * Returns: The modified graph.
- *
- * NOTE: Undefined if the node is not in the graph.
- */
-graph *graph_delete_node(graph *g, node *n);
-
-/**
  * graph_neighbours() - Return a list of neighbour nodes.
  * @g: Graph to inspect.
  * @n: Node to get neighbours for.
