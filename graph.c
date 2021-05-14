@@ -28,7 +28,7 @@ struct graph {
 struct node {
   dlist *edges;
   char *name;
-  bool seen;
+  bool *seen;
 };
 
 // ===========INTERNAL FUNCTION IMPLEMENTATIONS============
@@ -141,7 +141,7 @@ bool graph_node_is_seen(const graph *g, const node *n)
  */
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
 {
-  n->seen = seen;
+  n->seen = (bool*) seen;
   return g;
 }
 
@@ -192,17 +192,18 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 dlist *graph_neighbours(const graph *g,const node *n)
 {
 
-	struct dlist *namesOfNeighbours = calloc(1,sizeof(n->edges));
-	dlist_pos pos = dlist_first(g->nodes);
+	struct dlist *neighbours = calloc(1,sizeof(n->edges));
+	neighbours= n->edges;
+	// dlist_pos pos = dlist_first(n->edges);
 
-	while (!dlist_is_end(n->edges,pos)){
-		struct node *n = dlist_inspect(g->nodes,pos);
-		dlist_insert(namesOfNeighbours, n->name, pos);
-
-		pos = dlist_next(g->nodes, pos);
-
-	}
-	return namesOfNeighbours;
+	// while (!dlist_is_end(n->edges,pos)){
+	// 	dlist *m = dlist_inspect(n->edges, pos);
+	// 	dlist_insert(neighbours, m, pos);
+	// 	printf("gfhj\n");
+	// 	pos = dlist_next(n->edges, pos);
+	//
+	// }
+	return neighbours;
 }
 
 /**
