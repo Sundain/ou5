@@ -12,7 +12,7 @@ struct graph {
 
 struct node {
   dlist *edges;
-  char name;
+  char *name;
   bool seen;
 };
 
@@ -37,19 +37,19 @@ bool graph_is_empty(const graph *g)
 	return g->nmrOfNodes == 0;
 }
 
-bool graph_has_edges(const graph *g)
-{
-  dlist_pos pos = dlist_first(g->nodes);
-
-  while (!dlist_is_end(g->nodes, pos)) {
-    struct node n = dlist_inspect(g->nodes, pos);
-    if (!dlist_is_empty(n->edges)) {
-      return true;
-    }
-    pos = dlist_next(g->nodes, pos);
-  }
-  return false;
-}
+// bool graph_has_edges(const graph *g)
+// {
+//   dlist_pos pos = dlist_first(g->nodes);
+//
+//   while (!dlist_is_end(g->nodes, pos)) {
+//     struct node n = dlist_inspect(g->nodes, pos);
+//     if (!dlist_is_empty(n->edges)) {
+//       return true;
+//     }
+//     pos = dlist_next(g->nodes, pos);
+//   }
+//   return false;
+// }
 
 graph *graph_insert_node(graph *g, const char *s)
 {
@@ -68,8 +68,8 @@ node *graph_find_node(const graph *g, const char *s)
   dlist_pos pos = dlist_first(g->nodes);
 
   while (!dlist_is_end(g->nodes, pos)) {
-    struct node n = dlist_inspect(g->nodes, pos);
-    if (strcmp(n->name, s)) {
+    struct node *n = dlist_inspect(g->nodes, pos);
+    if (strcmp(n->name, *s)) {
       return n;
     }
     pos = dlist_next(g->nodes, pos);
@@ -94,7 +94,7 @@ graph *graph_reset_seen(graph *g)
 
 	while (!dlist_is_end(g->nodes, pos))
 	{
-		struct node n = dlist_inspect(g->nodes,pos);
+		struct node *n = dlist_inspect(g->nodes,pos);
 		n->seen = false;
 
 		pos = dlist_next(g->nodes, pos);
@@ -104,38 +104,11 @@ graph *graph_reset_seen(graph *g)
 
 graph *graph_insert_edge(graph *g, node *n1, node *n2)
 {
-  dlist_insert(n1->edges, n2->name, dlist_first(n1->edge));
+  dlist_insert(n1->edges, n2->name, dlist_first(n1->edges));
   return g;
 }
 
 graph *graph_delete_node(graph *g, node *n)
-{
-
-}
-
-graph *graph_delete_edge(graph *g, node *n1, node *n2)
-{
-  // dlist_pos pos1 = dlist_first(g->nodes);
-	//
-  // while (!dlist_is_end(g->nodes, pos1)) {
-  //   struct node m = dlist_inspect(g->nodes, pos1);
-  //   if (strcmp(m->name, n1->name)) {
-  //     dlist_pos pos2 = dlist_first(n1->edges);
-  //     while (!dlist_is_end(n1->edges, pos2) {
-  //       char e = dlist_inspect(n1->edge, pos2);
-  //       if (strcmp(e, n2->name)) {
-  //         dlist_remove(n1->edge, pos2);
-  //         return g;
-  //       }
-  //     }
-  //     pos2 = dlist_next(n1->edge, pos2);
-  //   }
-  //   pos1 = dlist_next(g->nodes, pos1);
-  // }
-  // return g;
-}
-
-node *graph_choose_node(const graph *g)
 {
 
 }
