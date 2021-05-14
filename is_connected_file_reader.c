@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "string.h"
+#include <string.h>
 //#include "queue.h"
 #include "graph.h"
 #include "dlist.h"
@@ -57,13 +57,15 @@ int main(int argc, char** argv) {
   graph *g = graph_empty(10);
 
   for (size_t i = 0; i < number_of_edges; i++) {
-    if (graph_find_node(g, origins[i]) != NULL)
+    if (graph_find_node(g, origins[i]) == NULL) {
       graph_insert_node(g, origins[i]);
+    }
   }
 
   for (size_t i = 0; i < number_of_edges; i++) {
-    if (graph_find_node(g, destinations[i]) != NULL)
+    if (graph_find_node(g, destinations[i]) == NULL) {
       graph_insert_node(g, destinations[i]);
+    }
   }
 
   for (size_t i = 0; i < number_of_edges; i++) {
