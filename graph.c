@@ -21,7 +21,7 @@ bool nodes_are_equal(const node *n1,const node *n2)
   return n1->name == n2->name;
 }
 
-graph *graph_empty()
+graph *graph_empty(int max_nodes)
 {
   // Allocate the graph header.
   struct graph *g = calloc(1, sizeof(graph));
