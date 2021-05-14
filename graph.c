@@ -76,9 +76,6 @@ bool graph_is_empty(const graph *g)
 	return dlist_is_empty(g->nodes);
 }
 
-<<<<<<< HEAD
-
-=======
 /**
  * graph_insert_node() - Inserts a node with the given name into the graph.
  * @g: Graph to manipulate.
@@ -89,16 +86,11 @@ bool graph_is_empty(const graph *g)
  *
  * Returns: The modified graph.
  */
->>>>>>> eeccf8c0aa7eaafb8e65a234112b637fae46a46f
 graph *graph_insert_node(graph *g, const char *s)
 {
 	struct node *n = calloc(1, sizeof(node));
 	n->edges = dlist_empty(NULL);
-<<<<<<< HEAD
-  n->name = (char*) s;
-=======
 	n->name = (char*) s;
->>>>>>> eeccf8c0aa7eaafb8e65a234112b637fae46a46f
 	n->seen = false;
 	g->nmrOfNodes++;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
