@@ -38,11 +38,12 @@ bool graph_is_empty(const graph *g)
 	return g->nmrOfNodes == 0;
 }
 
+
 graph *graph_insert_node(graph *g, const char *s)
 {
 	struct node *n = calloc(1, sizeof(node));
 	n->edges = dlist_empty(NULL);
-	strcpy(n->name, s);
+  n->name = (char*) s;
 	n->seen = false;
 	g->nmrOfNodes++;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
@@ -56,7 +57,7 @@ node *graph_find_node(const graph *g, const char *s)
 
   while (!dlist_is_end(g->nodes, pos)) {
     struct node *n = dlist_inspect(g->nodes, pos);
-    if (strcmp(n->name, s)) {
+    if (!strcmp(n->name, s)) {
       return n;
     }
     pos = dlist_next(g->nodes, pos);
@@ -66,6 +67,7 @@ node *graph_find_node(const graph *g, const char *s)
 
 bool graph_node_is_seen(const graph *g, const node *n)
 {
+
 	return n->seen;
 }
 
@@ -97,7 +99,16 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 
 dlist *graph_neighbours(const graph *g,const node *n)
 {
-	return n->edges;
+	struct dlist *copy = calloc(1,sizeof(n->edges));
+	dlist_pos pos = dlist_first(g->nodes);
+	while (!dlist_is_end(n->edges,pos)){
+		struct node *n = dlist_inspect(g->nodes,pos);
+		dlist_insert(copy, n, pos);
+
+		pos = dlist_next(g->nodes, pos);
+
+	}
+	return copy;
 }
 
 void graph_kill(graph *g)
