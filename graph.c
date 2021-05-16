@@ -12,10 +12,10 @@
  * University.
  *
  * Authors: Adam Nilsson (ens17ann@cs.umu.se)
- *	    Adam Dahlgren Lindstrom (din tfy18msn@cs.umu.se)
+ *	    Marcus Sundin (tfy18msn@cs.umu.se)
  *
  * Version information:
- *   2021-05-14: v1.0, first public version.
+ *   2021-05-16: v1.0, first public version.
  */
 
 // ===========INTERNAL DATA TYPES============
@@ -142,6 +142,7 @@ bool graph_node_is_seen(const graph *g, const node *n)
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
 {
   n->seen = (bool*) seen;
+
   return g;
 }
 
