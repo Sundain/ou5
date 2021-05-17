@@ -12,23 +12,22 @@
  * University.
  *
  * Authors: Adam Nilsson (ens17ann@cs.umu.se)
- *	    Marcus Sundin (tfy18msn@cs.umu.se)
+ *	    Adam Dahlgren Lindstrom (din tfy18msn@cs.umu.se)
  *
  * Version information:
- *   2021-05-16: v1.0, first public version.
+ *   2021-05-14: v1.0, first public version.
  */
 
 // ===========INTERNAL DATA TYPES============
 
 struct graph {
 	dlist *nodes;
-  int nmrOfNodes;
 };
 
 struct node {
   dlist *edges;
   char *name;
-  bool *seen;
+  bool seen;
 };
 
 // ===========INTERNAL FUNCTION IMPLEMENTATIONS============
@@ -60,7 +59,6 @@ graph *graph_empty(int max_nodes)
   struct graph *g = calloc(1, sizeof(graph));
   // Create the lists to hold the nodes and edges.
   g->nodes = dlist_empty(NULL);
-	g->nmrOfNodes = 0;
 
   return g;
 }
@@ -92,7 +90,6 @@ graph *graph_insert_node(graph *g, const char *s)
 	n->edges = dlist_empty(NULL);
 	n->name = (char*) s;
 	n->seen = false;
-	g->nmrOfNodes++;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
 
 	return g;
@@ -141,8 +138,7 @@ bool graph_node_is_seen(const graph *g, const node *n)
  */
 graph *graph_node_set_seen(graph *g, node *n, bool seen)
 {
-  n->seen = (bool*) seen;
-
+  n->seen = seen;
   return g;
 }
 
@@ -192,7 +188,6 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  */
 dlist *graph_neighbours(const graph *g,const node *n)
 {
-
 	struct dlist *neighbours = calloc(1,sizeof(n->edges));
 	neighbours= n->edges;
 	// dlist_pos pos = dlist_first(n->edges);
@@ -216,12 +211,34 @@ dlist *graph_neighbours(const graph *g,const node *n)
  * Returns: Nothing.
  */
 
-char *graph_node_name(const graph *g, const node *n)
-{
-	return n->name;
-}
-
 void graph_kill(graph *g)
 {
+	// Iterate over the list. Destroy all elements.
+	dlist_pos pos1 = dlist_first(g->nodes);
 
+	while (!dlist_is_end(g->nodes, pos1)) {
+
+		struct node *n = dlist_inspect(g->nodes, pos1);
+
+		dlist_pos pos2 = dlist_first(n->edges);
+
+		while (!dlist_is_end(n->edges, pos2)) {
+			char *edge = dlist_inspect(n->edges, pos2);
+			free(edge);
+			pos2 = dlist_next(n->edges, pos2);
+		}
+
+		char *name = n->name;
+		free(name);
+
+		// Move on to next element.
+		pos1 = dlist_next(g->nodes, pos1);
+    // Deallocate the table entry structure.
+    free(n);
+	}
+
+	// Kill what's left of the list...
+	dlist_kill(g->nodes);
+	// ...and the table.
+	free(g);
 }
