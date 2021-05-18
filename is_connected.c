@@ -159,21 +159,19 @@ int main(int argc, char** argv) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
         loop=false;
+        break;
       }
     }
     if (loop)
     {
-      printf("top.\n");
       strcpy(src_name, array[0]);
       strcpy(dest_name, array[1]);
-      printf("top+1.\n");
       memset(array[0], 0, strlen(array[0]));
       memset(array[1], 0, strlen(array[1]));
 
-      printf("top+2.\n");
       struct node *src = graph_find_node(g, src_name);
       struct node *dest = graph_find_node(g, dest_name);
-      printf("top+3.\n");
+
       bool connected = find_path(g, src, dest);
       if (connected)
       {
@@ -191,7 +189,6 @@ int main(int argc, char** argv) {
     g = graph_reset_seen(g);
     }
   }
-  printf("1.\n");
   graph_kill(g);
   printf("Normal exit.\n");
   return 0;
