@@ -65,10 +65,11 @@
            q = queue_enqueue(q,m); //Add the node "m" to the queue.
          }
        }
+       dlist_pos pos_temp=pos;
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
-       //free(m);
+       dlist_remove(neighbours,pos_temp);
      }
-     free(neighbours);
+     dlist_kill(neighbours);
    }
   queue_kill(q);
    return false; //if "dest" not found return false
