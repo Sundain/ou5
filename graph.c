@@ -22,6 +22,7 @@
 
 struct graph {
 	dlist *nodes;
+	int nmrOfNodes;
 };
 
 struct node {
@@ -59,6 +60,7 @@ graph *graph_empty(int max_nodes)
   struct graph *g = calloc(1, sizeof(graph));
   // Create the lists to hold the nodes and edges.
   g->nodes = dlist_empty(NULL);
+	g->nmrOfNodes = 0;
 
   return g;
 }
@@ -71,7 +73,7 @@ graph *graph_empty(int max_nodes)
  */
 bool graph_is_empty(const graph *g)
 {
-	return dlist_is_empty(g->nodes);
+	return g->nmrOfNodes == 0;
 }
 
 /**
@@ -91,6 +93,7 @@ graph *graph_insert_node(graph *g, const char *s)
 	n->name = (char*) s;
 	n->seen = false;
 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
+	g->nmrOfNodes++;
 
 	return g;
 }
@@ -124,7 +127,6 @@ node *graph_find_node(const graph *g, const char *s)
  */
 bool graph_node_is_seen(const graph *g, const node *n)
 {
-
 	return n->seen;
 }
 
