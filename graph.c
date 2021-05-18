@@ -86,17 +86,17 @@ bool graph_is_empty(const graph *g)
  *
  * Returns: The modified graph.
  */
-graph *graph_insert_node(graph *g, const char *s)
-{
-	struct node *n = calloc(1, sizeof(node));
-	n->edges = dlist_empty(NULL);
-	n->name = (char*) s;
-	n->seen = false;
-	dlist_insert(g->nodes, n, dlist_first(g->nodes));
-	g->nmrOfNodes++;
+ graph *graph_insert_node(graph *g, const char *s)
+ {
+ 	struct node *n = malloc(sizeof(struct node));
+ 	n->edges = dlist_empty(NULL);
+ 	n->name = (char*) s;
+ 	n->seen = false;
+ 	dlist_insert(g->nodes, n, dlist_first(g->nodes));
+ 	g->nmrOfNodes++;
 
-	return g;
-}
+ 	return g;
+ }
 
 /**
  * graph_find_node() - Find a node stored in the graph.
