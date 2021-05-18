@@ -230,9 +230,6 @@ void graph_kill(graph *g)
 			pos2 = dlist_next(n->edges, pos2);
 		}
 
-		char *name = n->name;
-		free(name);
-
 		// Move on to next element.
 		pos1 = dlist_next(g->nodes, pos1);
     // Deallocate the table entry structure.
