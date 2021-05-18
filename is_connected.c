@@ -26,23 +26,27 @@
    //Creating an empty queue
    queue *q = queue_empty(NULL);
    bool seen = true;
-
-   if (nodes_are_equal(dest,src))
-   {
-     return true;
-   }
-
+   // if (*src != NULL && *dest != NULL)
+   // {
+   //   if (nodes_are_equal(dest,src))
+   //   {
+   //     return true;
+   //   }
+   // }
+   
    graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
    queue_enqueue(q,src); // Put "src" node in queue.
    //Check if the nodes are the same, returns that the nodes are connected if true.
 
    while (!queue_is_empty(q))
    {
+
      struct node *p = queue_front(q); // Pick first node from queue
      queue_dequeue(q); //Remove the first element from the queue
      struct dlist *neighbours=graph_neighbours(g,p);//saving the neighbours in a directed list.
      dlist_pos pos = dlist_first(neighbours); //checking the position of first element.
      //Go through neighbours and add to queue if the node is not set to seen.
+
      while(!dlist_is_end(neighbours,pos))
      {
        char* name = dlist_inspect(neighbours, pos);
@@ -54,7 +58,7 @@
          //returns that the nodes are connected if true.
          if (nodes_are_equal(m,dest))
          {
-           dlist_kill(neighbours);
+          // dlist_kill(neighbours);
            queue_kill(q);
            return true;
          }
@@ -68,11 +72,12 @@
        }
        //dlist_pos pos_temp=pos;
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
-      // dlist_remove(neighbours,pos_temp);
+       //dlist_remove(neighbours,pos_temp);
      }
-     dlist_kill(neighbours);
+     //dlist_kill(neighbours);
    }
    queue_kill(q);
+
    return false; //if "dest" not found return false
  }
 
@@ -142,7 +147,8 @@ int main(int argc, char** argv) {
     graph_insert_edge(g, n1, n2);
   }
 
-  while (true) {
+  bool loop=true;
+  while (loop) {
 
     char src_name[41];
     char dest_name[41];
@@ -153,24 +159,22 @@ int main(int argc, char** argv) {
     for (size_t i = 0; i < 2; i++) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
+        loop=false;
         break;
       }
     }
 
-    if (!strcmp(array[0], "quit")) {
-      break;
-    }
-
     strcpy(src_name, array[0]);
     strcpy(dest_name, array[1]);
+
     memset(array[0], 0, strlen(array[0]));
     memset(array[1], 0, strlen(array[1]));
+
 
     struct node *src = graph_find_node(g, src_name);
     struct node *dest = graph_find_node(g, dest_name);
 
     bool connected = find_path(g, src, dest);
-
     if (connected)
     {
       printf("There is a path from %s to %s. \n", src_name, dest_name);
