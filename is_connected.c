@@ -27,13 +27,15 @@
    queue *q = queue_empty(NULL);
    bool seen = true;
 
-   graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
-   queue_enqueue(q,src); // Put "src" node in queue.
-   //Check if the nodes are the same, returns that the nodes are connected if true.
    if (nodes_are_equal(dest,src))
    {
      return true;
    }
+
+   graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
+   queue_enqueue(q,src); // Put "src" node in queue.
+   //Check if the nodes are the same, returns that the nodes are connected if true.
+
    while (!queue_is_empty(q))
    {
      struct node *p = queue_front(q); // Pick first node from queue
@@ -53,6 +55,7 @@
          if (nodes_are_equal(m,dest))
          {
            return true;
+           queue_kill(q);
          }
          //If nodes  are not equal continue with the traversing by setting the node as seen.
          //The node is also added into the queue.
@@ -67,6 +70,7 @@
      }
      free(neighbours);
    }
+  queue_kill(q);
    return false; //if "dest" not found return false
  }
 
