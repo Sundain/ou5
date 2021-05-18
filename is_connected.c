@@ -54,8 +54,9 @@
          //returns that the nodes are connected if true.
          if (nodes_are_equal(m,dest))
          {
-           return true;
+           dlist_kill(neighbours);
            queue_kill(q);
+           return true;
          }
          //If nodes  are not equal continue with the traversing by setting the node as seen.
          //The node is also added into the queue.
@@ -65,13 +66,13 @@
            q = queue_enqueue(q,m); //Add the node "m" to the queue.
          }
        }
-       dlist_pos pos_temp=pos;
+       //dlist_pos pos_temp=pos;
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
-       dlist_remove(neighbours,pos_temp);
+      // dlist_remove(neighbours,pos_temp);
      }
      dlist_kill(neighbours);
    }
-  queue_kill(q);
+   queue_kill(q);
    return false; //if "dest" not found return false
  }
 
