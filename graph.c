@@ -191,16 +191,16 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 dlist *graph_neighbours(const graph *g,const node *n)
 {
 	struct dlist *neighbours = calloc(1,sizeof(n->edges));
-	neighbours= n->edges;
-	// dlist_pos pos = dlist_first(n->edges);
+	// neighbours= n->edges;
+	dlist_pos pos = dlist_first(n->edges);
 
-	// while (!dlist_is_end(n->edges,pos)){
-	// 	dlist *m = dlist_inspect(n->edges, pos);
-	// 	dlist_insert(neighbours, m, pos);
-	// 	printf("gfhj\n");
-	// 	pos = dlist_next(n->edges, pos);
-	//
-	// }
+	while (!dlist_is_end(n->edges,pos)){
+		dlist *m = dlist_inspect(n->edges, pos);
+		dlist_insert(neighbours, pos);
+		printf("gfhj\n");
+		pos = dlist_next(n->edges, pos);
+
+	}
 	return neighbours;
 }
 
