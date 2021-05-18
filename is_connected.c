@@ -29,15 +29,12 @@
 
    graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
    queue_enqueue(q,src); // Put "src" node in queue.
-
    //Check if the nodes are the same, returns that the nodes are connected if true.
    if (nodes_are_equal(dest,src))
    {
      return true;
    }
-
-
-   while (!queue_is_empty(q) )
+   while (!queue_is_empty(q))
    {
      struct node *p = queue_front(q); // Pick first node from queue
      queue_dequeue(q); //Remove the first element from the queue
@@ -48,7 +45,6 @@
      {
        char* name = dlist_inspect(neighbours, pos);
        struct node *m = graph_find_node(g, name);
-
        //Check if the node "m" is set as seen.
        if (!graph_node_is_seen(g, m))
        {
@@ -184,7 +180,7 @@ int main(int argc, char** argv) {
     g = graph_reset_seen(g);
   }
 
-
+  graph_kill(g);
   printf("Normal exit.\n");
   return 0;
 }
