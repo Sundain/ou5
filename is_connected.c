@@ -26,13 +26,12 @@
    //Creating an empty queue
    queue *q = queue_empty(NULL);
    bool seen = true;
-   // if (*src != NULL && *dest != NULL)
-   // {
-   //   if (nodes_are_equal(dest,src))
-   //   {
-   //     return true;
-   //   }
-   // }
+   {
+     if (nodes_are_equal(dest,src))
+     {
+       return true;
+     }
+   }
 
    graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
    queue_enqueue(q,src); // Put "src" node in queue.
