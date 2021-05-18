@@ -33,7 +33,7 @@
    //     return true;
    //   }
    // }
-   
+
    graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
    queue_enqueue(q,src); // Put "src" node in queue.
    //Check if the nodes are the same, returns that the nodes are connected if true.
@@ -160,36 +160,39 @@ int main(int argc, char** argv) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
         loop=false;
-        break;
       }
     }
-
-    strcpy(src_name, array[0]);
-    strcpy(dest_name, array[1]);
-
-    memset(array[0], 0, strlen(array[0]));
-    memset(array[1], 0, strlen(array[1]));
-
-
-    struct node *src = graph_find_node(g, src_name);
-    struct node *dest = graph_find_node(g, dest_name);
-
-    bool connected = find_path(g, src, dest);
-    if (connected)
+    if (loop)
     {
-      printf("There is a path from %s to %s. \n", src_name, dest_name);
-      //printf("There is a path from %s to %s.\n",
-      //*graph_node_name(g, src), *graph_node_name(g, dest));
-    }
-    else
-    {
-      printf("There is no path from %s to %s. \n", src_name, dest_name);
-    }
+      printf("top.\n");
+      strcpy(src_name, array[0]);
+      strcpy(dest_name, array[1]);
+      printf("top+1.\n");
+      memset(array[0], 0, strlen(array[0]));
+      memset(array[1], 0, strlen(array[1]));
+
+      printf("top+2.\n");
+      struct node *src = graph_find_node(g, src_name);
+      struct node *dest = graph_find_node(g, dest_name);
+      printf("top+3.\n");
+      bool connected = find_path(g, src, dest);
+      if (connected)
+      {
+        printf("There is a path from %s to %s. \n", src_name, dest_name);
+        //printf("There is a path from %s to %s.\n",
+        //*graph_node_name(g, src), *graph_node_name(g, dest));
+      }
+      else
+      {
+        printf("There is no path from %s to %s. \n", src_name, dest_name);
+      }
+
 
     //reset seen status between runs:
     g = graph_reset_seen(g);
+    }
   }
-
+  printf("1.\n");
   graph_kill(g);
   printf("Normal exit.\n");
   return 0;
