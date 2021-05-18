@@ -239,6 +239,5 @@ void graph_kill(graph *g)
 	// Kill what's left of the list...
 	dlist_kill(g->nodes);
 	// ...and the table.
-	printf("1");
 	free(g);
 }
