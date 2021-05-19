@@ -190,8 +190,9 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  */
  dlist *graph_neighbours(const graph *g,const node *n)
  {
- 	struct dlist *neighbours = dlist_empty(NULL);
- 	neighbours= n->edges;
+ 	// struct dlist *neighbours = dlist_empty(NULL);
+ 	// neighbours= n->edges;
+
  	// dlist_pos pos = dlist_first(n->edges);
  	// dlist_pos pos2 = dlist_first(neighbours);
 	//
@@ -204,7 +205,7 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  	// 	pos = dlist_next(n->edges, pos);
  	// 	pos2 = dlist_next(neighbours, pos2);
  	// }
- 	return neighbours;
+ 	return n -> edges;
  }
 
 /**
