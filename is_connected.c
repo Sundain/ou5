@@ -138,8 +138,6 @@ int main(int argc, char** argv) {
   if (i != number_of_edges)
     error = true;
 
-  fclose(fp);
-
   if (error) {
     printf("Invalid map\n");
     exit(EXIT_FAILURE);
