@@ -171,43 +171,47 @@ int main(int argc, char** argv) {
 
     char src_name[41];
     char dest_name[41];
-    char array[2][41];
+    char names[2][41];
+    error = false;
 
     printf("Enter origin and destination (quit to exit): ");
-    int i=0;
-    while (i < 2) {
-      scanf("%s", array[i]);
-      if (!strcmp(array[0], "quit")) {
-        loop=false;
+    for (int i = 0; i < 2; i++) {
+      scanf("%s", names[i]);
+      if (!strcmp(names[0], "quit")) {
+        loop = false;
         break;
       }
-      i++;
     }
+
     if (loop)
     {
-      strcpy(src_name, array[0]);
-      strcpy(dest_name, array[1]);
-      memset(array[0], 0, strlen(array[0]));
-      memset(array[1], 0, strlen(array[1]));
+      strcpy(src_name, names[0]);
+      strcpy(dest_name, names[1]);
 
-      struct node *src = graph_find_node(g, src_name);
-      struct node *dest = graph_find_node(g, dest_name);
+      if (graph_find_node(g, src_name) == NULL ||
+          graph_find_node(g, dest_name) == NULL)
+          error = true;
 
-      bool connected = find_path(g, src, dest);
-      if (connected)
-      {
-        printf("There is a path from %s to %s. \n", src_name, dest_name);
-        //printf("There is a path from %s to %s.\n",
-        //*graph_node_name(g, src), *graph_node_name(g, dest));
+      if (!error) {
+        struct node *src = graph_find_node(g, src_name);
+        struct node *dest = graph_find_node(g, dest_name);
+
+        bool connected = find_path(g, src, dest);
+        if (connected)
+        {
+          printf("There is a path from %s to %s. \n", src_name, dest_name);
+          //printf("There is a path from %s to %s.\n",
+          //*graph_node_name(g, src), *graph_node_name(g, dest));
+        }
+        else
+        {
+          printf("There is no path from %s to %s. \n", src_name, dest_name);
+        }
+        //reset seen status between runs:
+        g = graph_reset_seen(g);
       }
       else
-      {
-        printf("There is no path from %s to %s. \n", src_name, dest_name);
-      }
-
-
-      //reset seen status between runs:
-      g = graph_reset_seen(g);
+        printf("Invalid input\n");
     }
   }
   graph_kill(g);
