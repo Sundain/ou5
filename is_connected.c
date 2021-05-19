@@ -93,6 +93,7 @@ int main(int argc, char** argv) {
 
   int i = 0;
   int number_of_edges = -1;
+  bool error = false;
 
   while (fgets(str, MAXCHAR, fp) != NULL) {
     if (str[0] != '#' && str[0] != ' ') {
@@ -100,17 +101,24 @@ int main(int argc, char** argv) {
       break;
     }
   }
+  if (number_of_edges < 1)
+    error = true;
+
   char origins[number_of_edges][41];
   char destinations[number_of_edges][41];
 
-  while (fgets(str, MAXCHAR, fp) != NULL) {
+  while (fgets(str, MAXCHAR, fp) != NULL && !error) {
     if (str[0] != '#' && str[0] != ' ') {
       char sub[41];
       int j = 0;
-      while(str[j] != ' ') {
+      while(str[j] != ' ' && !error) {
         sub[j] = str[j];
+        if (str[j] == '\n')
+          error = true;
         j++;
       }
+      if (error)
+        break;
       strcpy(origins[i], sub);
       memset(sub, 0, strlen(sub));
 
@@ -125,6 +133,16 @@ int main(int argc, char** argv) {
       memset(sub, 0, strlen(sub));
       i++;
     }
+  }
+
+  if (i != number_of_edges)
+    error = true;
+
+  fclose(fp);
+
+  if (error) {
+    printf("Invalid map\n");
+    exit(EXIT_FAILURE);
   }
 
   fclose(fp);
