@@ -57,7 +57,10 @@
          //returns that the nodes are connected if true.
          if (nodes_are_equal(m,dest))
          {
-          // dlist_kill(neighbours);
+           while (!queue_is_empty(q))
+           {
+             queue_dequeue(q);
+           }
            queue_kill(q);
            return true;
          }
@@ -147,33 +150,35 @@ int main(int argc, char** argv) {
   }
 
   bool loop=true;
-  while (loop) {
+  while (loop)
+  {
 
     char src_name[41];
     char dest_name[41];
     char array[2][41];
 
     printf("Enter origin and destination (quit to exit): ");
-
-    for (size_t i = 0; i < 2; i++) {
+    int i=0;
+    while (i < 2) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
         loop=false;
+        i=2;
       }
+      i++;
     }
     if (loop)
     {
-      printf("top.\n");
+      printf("2\n");
       strcpy(src_name, array[0]);
       strcpy(dest_name, array[1]);
-      printf("top+1.\n");
+
       memset(array[0], 0, strlen(array[0]));
       memset(array[1], 0, strlen(array[1]));
 
-      printf("top+2.\n");
       struct node *src = graph_find_node(g, src_name);
       struct node *dest = graph_find_node(g, dest_name);
-      printf("top+3.\n");
+
       bool connected = find_path(g, src, dest);
       if (connected)
       {
@@ -187,11 +192,11 @@ int main(int argc, char** argv) {
       }
 
 
-    //reset seen status between runs:
-    g = graph_reset_seen(g);
+      //reset seen status between runs:
+      g = graph_reset_seen(g);
     }
   }
-  printf("1.\n");
+  printf("2\n");
   graph_kill(g);
   printf("Normal exit.\n");
   return 0;
