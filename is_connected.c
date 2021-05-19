@@ -168,7 +168,7 @@ int main(int argc, char** argv) {
       i++;
     }
     if (loop)
-
+    {
       strcpy(src_name, array[0]);
       strcpy(dest_name, array[1]);
 
