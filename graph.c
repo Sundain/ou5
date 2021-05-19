@@ -88,7 +88,7 @@ bool graph_is_empty(const graph *g)
  */
  graph *graph_insert_node(graph *g, const char *s)
  {
- 	struct node *n = malloc(sizeof(struct node));
+ 	struct node *n = calloc(1,sizeof(*n));
  	n->edges = dlist_empty(NULL);
  	n->name = (char*) s;
  	n->seen = false;
@@ -190,21 +190,6 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
  */
  dlist *graph_neighbours(const graph *g,const node *n)
  {
- 	// struct dlist *neighbours = dlist_empty(NULL);
- 	// neighbours= n->edges;
-
- 	// dlist_pos pos = dlist_first(n->edges);
- 	// dlist_pos pos2 = dlist_first(neighbours);
-	//
- 	// while (!dlist_is_end(n->edges, pos)){
-	//
- 	// 	char sub[41];
- 	// 	strcpy(sub, dlist_inspect(n->edges,pos));
- 	// 	dlist_insert(neighbours, sub, pos);
-	//
- 	// 	pos = dlist_next(n->edges, pos);
- 	// 	pos2 = dlist_next(neighbours, pos2);
- 	// }
  	return n -> edges;
  }
 
@@ -225,20 +210,13 @@ void graph_kill(graph *g)
 	while (!dlist_is_end(g->nodes, pos1)) {
 		struct node *n = dlist_inspect(g->nodes, pos1);
 
+		//Deallocate the list where the nodes are saved.
 		dlist_kill(n->edges);
-		// dlist_pos pos2 = dlist_first(n->edges);
-		//
-		// while (!dlist_is_end(n->edges, pos2)) {
-		// //	char *edge = dlist_inspect(n->edges, pos2);
-		// 	dlist_pos pos_temp = pos2;
-		// 	pos2 = dlist_next(n->edges, pos2);
-		// 	dlist_remove(n->edges,pos_temp);
-		// }
-		//
+
 		// Move on to next element.
 		pos1 = dlist_next(g->nodes, pos1);
     // Deallocate the table entry structure.
-    // free(n);
+    free(n);
 	}
 
 	// Kill what's left of the list...
