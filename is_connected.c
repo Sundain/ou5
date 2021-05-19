@@ -168,8 +168,7 @@ int main(int argc, char** argv) {
       i++;
     }
     if (loop)
-    {
-      printf("2\n");
+
       strcpy(src_name, array[0]);
       strcpy(dest_name, array[1]);
 
@@ -196,7 +195,6 @@ int main(int argc, char** argv) {
       g = graph_reset_seen(g);
     }
   }
-  printf("2\n");
   graph_kill(g);
   printf("Normal exit.\n");
   return 0;
