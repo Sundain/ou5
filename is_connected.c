@@ -163,7 +163,7 @@ int main(int argc, char** argv) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
         loop=false;
-        i=2;
+        break;
       }
       i++;
     }
@@ -171,7 +171,6 @@ int main(int argc, char** argv) {
     {
       strcpy(src_name, array[0]);
       strcpy(dest_name, array[1]);
-
       memset(array[0], 0, strlen(array[0]));
       memset(array[1], 0, strlen(array[1]));
 
