@@ -57,7 +57,10 @@
          //returns that the nodes are connected if true.
          if (nodes_are_equal(m,dest))
          {
-          // dlist_kill(neighbours);
+           while (!queue_is_empty(q))
+           {
+             queue_dequeue(q);
+           }
            queue_kill(q);
            return true;
          }
@@ -147,20 +150,22 @@ int main(int argc, char** argv) {
   }
 
   bool loop=true;
-  while (loop) {
+  while (loop)
+  {
 
     char src_name[41];
     char dest_name[41];
     char array[2][41];
 
     printf("Enter origin and destination (quit to exit): ");
-
-    for (size_t i = 0; i < 2; i++) {
+    int i=0;
+    while (i < 2) {
       scanf("%s", array[i]);
       if (!strcmp(array[0], "quit")) {
         loop=false;
         break;
       }
+      i++;
     }
     if (loop)
     {
@@ -185,8 +190,8 @@ int main(int argc, char** argv) {
       }
 
 
-    //reset seen status between runs:
-    g = graph_reset_seen(g);
+      //reset seen status between runs:
+      g = graph_reset_seen(g);
     }
   }
   graph_kill(g);
