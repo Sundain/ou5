@@ -107,18 +107,23 @@ int main(int argc, char** argv) {
   char origins[number_of_edges][41];
   char destinations[number_of_edges][41];
 
-  while (fgets(str, MAXCHAR, fp) != NULL && !error) {
-    if (str[0] != '#' && str[0] != ' ') {
+  while (fgets(str, MAXCHAR, fp) != NULL && !error)
+  {
+    if (str[0] != '#' && str[0] != ' ')
+    {
       char sub[41];
       int j = 0;
-      while(str[j] != ' ' && !error) {
+      while(str[j] != ' ' && !error)
+      {
         sub[j] = str[j];
         if (str[j] == '\n')
           error = true;
         j++;
       }
-      if (error)
+      if (error){
         break;
+      }
+
       strcpy(origins[i], sub);
       memset(sub, 0, strlen(sub));
 
