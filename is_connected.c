@@ -102,13 +102,14 @@ int main(int argc, char** argv) {
     }
   }
   if (number_of_edges < 1)
+  {
     error = true;
+  }
 
   char origins[number_of_edges][41];
   char destinations[number_of_edges][41];
 
-  while (fgets(str, MAXCHAR, fp) != NULL && !error)
-  {
+  while (fgets(str, MAXCHAR, fp) != NULL && !error) {
     if (str[0] != '#' && str[0] != ' ')
     {
       char sub[41];
