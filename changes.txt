@@ -1,0 +1,3 @@
+v 2.0
+Lade till figurer där testkörningar illustreras.
+Fixade så att namnet i programbeskrivningen stämmer.

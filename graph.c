@@ -12,10 +12,11 @@
  * University.
  *
  * Authors: Adam Nilsson (ens17ann@cs.umu.se)
- *	    		Marcus Sundin (din tfy18msn@cs.umu.se)
+ *	    		Marcus Sundin (tfy18msn@cs.umu.se)
  *
  * Version information:
  *   2021-05-14: v1.0, first public version.
+ *   2021-05-27: v2.0, small changes.
  */
 
 // ===========INTERNAL DATA TYPES============

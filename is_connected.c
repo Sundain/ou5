@@ -19,6 +19,7 @@
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
+ *   2021-05-16: v2.0, fixed memory leaks when reading the map file.
  */
 
  bool find_path(graph *g, node *src, node *dest)
