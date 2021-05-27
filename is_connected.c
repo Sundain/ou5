@@ -92,6 +92,11 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
 
+  if (argv == 0) {
+    printf("No Map!\n");
+    exit(EXIT_FAILURE);
+  }
+
   //loops until it sees a number
   while (fgets(str, MAXCHAR, fp) != NULL) {
     //ignors if the row starts with a # or blanck space
