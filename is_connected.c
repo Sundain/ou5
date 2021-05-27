@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
 
-  if (argv == 0) {
+  if (argc == 1) {
     printf("No Map!\n");
     exit(EXIT_FAILURE);
   }
