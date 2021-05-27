@@ -12,7 +12,7 @@
  * University.
  *
  * Authors: Adam Nilsson (ens17ann@cs.umu.se)
- *	    Adam Dahlgren Lindstrom (din tfy18msn@cs.umu.se)
+ *	    		Marcus Sundin (din tfy18msn@cs.umu.se)
  *
  * Version information:
  *   2021-05-14: v1.0, first public version.
