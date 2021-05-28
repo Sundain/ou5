@@ -15,7 +15,7 @@
  * The graph is then traversed with a breadth-first algorihm.
  *
  * Authors: Adam Nilsson (ens17ann@cs.umu.se)
- *	    Marcus Sundin (tfy18msn@cs.umu.se)
+ *	        Marcus Sundin (tfy18msn@cs.umu.se)
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
@@ -112,9 +112,8 @@ int main(int argc, char** argv) {
   }
 
   //string vector containing nodes connected by edges
-  char origin[41];
-  char destination[41];
-  graph *g = graph_empty(10); //empty graph
+  char origins[number_of_edges][41];
+  char destinations[number_of_edges][41];
 
   //loops over the rest of the file
   while (fgets(str, MAXCHAR, fp) != NULL && !error) {
@@ -134,12 +133,9 @@ int main(int argc, char** argv) {
       if (error){
         break;
       }
-      if (sub != NULL) {
-        strcpy(origin, sub);    //puts in origin name
-        memset(sub, 0, strlen(sub));
-      }
-      else
-        error = true;
+
+      strcpy(origins[i], sub);    //puts in origin name
+      memset(sub, 0, strlen(sub));
 
       j++;
       int k = 0;
@@ -149,28 +145,8 @@ int main(int argc, char** argv) {
         j++;
         k++;
       }
-      if (sub != NULL) {
-        strcpy(destination, sub); //puts in the new destination name
-        memset(sub, 0, strlen(sub));
-      }
-      else
-        error = true;
-
-      if (destination != NULL && origin != NULL && !error) {
-        char *origin2 = calloc(1,sizeof(*origin2));
-        strcpy(origin2, origin);
-        if (graph_find_node(g, origin2) == NULL) {
-          graph_insert_node(g, origin2);
-        }
-        char *destination2 = calloc(1,sizeof(*destination2));
-        strcpy(destination2, destination);
-        if (graph_find_node(g, destination2) == NULL) {
-          graph_insert_node(g, destination2);
-        }
-        struct node *n1 = graph_find_node(g, origin);
-        struct node *n2 = graph_find_node(g, destination);
-        graph_insert_edge(g, n1, n2);
-      }
+      strcpy(destinations[i], sub); //puts in the new destination name
+      memset(sub, 0, strlen(sub));
       i++;
     }
   }
@@ -185,6 +161,27 @@ int main(int argc, char** argv) {
   }
 
   fclose(fp);
+
+  graph *g = graph_empty(10); //empty graph
+
+  //inserts the origin nodes
+  for (size_t i = 0; i < number_of_edges; i++) {
+    if (graph_find_node(g, origins[i]) == NULL) {
+      graph_insert_node(g, origins[i]);
+    }
+  }
+  //inserts the destination nodes
+  for (size_t i = 0; i < number_of_edges; i++) {
+    if (graph_find_node(g, destinations[i]) == NULL) {
+      graph_insert_node(g, destinations[i]);
+    }
+  }
+  //inserts the edges
+  for (size_t i = 0; i < number_of_edges; i++) {
+    struct node *n1 = graph_find_node(g, origins[i]);
+    struct node *n2 = graph_find_node(g, destinations[i]);
+    graph_insert_edge(g, n1, n2);
+  }
 
   bool loop=true;
   while (loop)
@@ -222,11 +219,11 @@ int main(int argc, char** argv) {
         //message
         if (connected)
         {
-          printf("There is a path from %s to %s. \n", src_name, dest_name);
+          printf("There is a path from %s to %s.\n", src_name, dest_name);
         }
         else
         {
-          printf("There is no path from %s to %s. \n", src_name, dest_name);
+          printf("There is no path from %s to %s.\n", src_name, dest_name);
         }
         //reset seen status between runs:
         g = graph_reset_seen(g);
