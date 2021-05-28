@@ -19,7 +19,6 @@
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
- *   2021-05-16: v2.0, fixed memory leaks when reading the map file.
  */
 
  bool find_path(graph *g, node *src, node *dest)
@@ -27,10 +26,12 @@
    //Creating an empty queue
    queue *q = queue_empty(NULL);
    bool seen = true;
+   {
      if (nodes_are_equal(dest,src))
      {
        return true;
      }
+   }
 
    graph_node_set_seen(g, src, seen); // Mark the "src" node as seen.
    queue_enqueue(q,src); // Put "src" node in queue.
@@ -91,10 +92,12 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
 
-  if (argc == 1) {
-    printf("No Map!\n");
+  //error message
+  if (error) {
+    printf("Invalid map\n");
     exit(EXIT_FAILURE);
   }
+
 
   //loops until it sees a number
   while (fgets(str, MAXCHAR, fp) != NULL) {
