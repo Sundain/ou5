@@ -1,0 +1,5 @@
+v 2.0
+Lade till figurer där testkörningar illustreras.
+Fixade så att namnet i programbeskrivningen stämmer.
+Rätt utskrift vid användande av inkorrekt ''map'' fil.
+Inlagd pseudokod.
