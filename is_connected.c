@@ -124,6 +124,10 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
   graph *g = graph_empty(100); //empty graph
+  if (argc == 1) {
+    printf("No map!\n");
+    exit(EXIT_FAILURE);
+  }
 
   //string vector containing nodes connected by edges
   while (fgets(str, MAXCHAR, fp) != NULL) {
