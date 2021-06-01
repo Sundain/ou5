@@ -17,6 +17,7 @@
  * Version information:
  *   2021-05-14: v1.0, first public version.
  *   2021-05-27: v2.0, small changes.
+ *   2021-06-01: v3.0, memory leaks fixed.
  */
 
 // ===========INTERNAL DATA TYPES============
