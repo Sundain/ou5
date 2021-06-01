@@ -91,6 +91,7 @@ char *copy_string(const char *s)
              queue_dequeue(q);
            }
            queue_kill(q);
+           dlist_kill(neighbours);
            return true;
          }
          //If nodes  are not equal continue with the traversing by setting the node as seen.
@@ -103,8 +104,10 @@ char *copy_string(const char *s)
        }
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
      }
+   dlist_kill(neighbours);
    }
    queue_kill(q);
+
 
    return false; //if "dest" not found return false
  }
