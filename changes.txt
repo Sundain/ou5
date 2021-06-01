@@ -3,4 +3,6 @@ Lade till figurer där testkörningar illustreras.
 Fixade så att namnet i programbeskrivningen stämmer.
 Rätt utskrift vid användande av inkorrekt ''map'' fil.
 Inlagd pseudokod.
-Ändrade graph_neighbours så att noderna sparas i en separat lista. 
+Ändrade graph_neighbours så att noderna sparas i en separat lista.
+Använde string_copy istället för str_cpy.
+Fixade minnesläckor.
