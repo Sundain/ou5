@@ -147,6 +147,7 @@ int main(int argc, char** argv) {
       if (error) {
         break;
       }
+      sub[j] = '\0';
       origin = copy_string(sub);
 
       j++;
@@ -157,6 +158,7 @@ int main(int argc, char** argv) {
         j++;
         k++;
       }
+      sub[k] = '\0';
       destination = copy_string(sub);
       i++;
 
@@ -194,8 +196,8 @@ int main(int argc, char** argv) {
   bool loop=true;
   while (loop)
   {
-    char src_name[41];
-    char dest_name[41];
+    // char* src_name;
+    // char* dest_name;
     char names[2][41];
     error = false;  //reset error
     //asks for node names
@@ -211,26 +213,26 @@ int main(int argc, char** argv) {
 
     if (loop)
     {
-      strcpy(src_name, names[0]);
-      strcpy(dest_name, names[1]);
+      // src_name = copy_string(names[0]);
+      // dest_name = copy_string(names[1]);
       //checks if nodes exist
-      if (graph_find_node(g, src_name) == NULL ||
-          graph_find_node(g, dest_name) == NULL)
+      if (graph_find_node(g, names[0]) == NULL ||
+          graph_find_node(g, names[1]) == NULL)
           error = true;
 
       if (!error) {
-        struct node *src = graph_find_node(g, src_name);
-        struct node *dest = graph_find_node(g, dest_name);
+        struct node *src = graph_find_node(g,  names[0]);
+        struct node *dest = graph_find_node(g,  names[1]);
 
         bool connected = find_path(g, src, dest); //try to find a path
         //message
         if (connected)
         {
-          printf("There is a path from %s to %s.\n", src_name, dest_name);
+          printf("There is a path from %s to %s.\n",  names[0],  names[1]);
         }
         else
         {
-          printf("There is no path from %s to %s.\n", src_name, dest_name);
+          printf("There is no path from %s to %s.\n",  names[0],  names[1]);
         }
         //reset seen status between runs:
         g = graph_reset_seen(g);
