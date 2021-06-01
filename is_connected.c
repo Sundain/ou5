@@ -124,8 +124,6 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
   graph *g = graph_empty(100); //empty graph
-  char* origin;
-  char* destination;
 
   //string vector containing nodes connected by edges
   while (fgets(str, MAXCHAR, fp) != NULL) {
@@ -151,7 +149,7 @@ int main(int argc, char** argv) {
         break;
       }
       sub[j] = '\0';
-      origin = copy_string(sub);
+      char* origin = copy_string(sub);
 
       j++;
       int k = 0;
@@ -162,25 +160,34 @@ int main(int argc, char** argv) {
         k++;
       }
       sub[k] = '\0';
-      destination = copy_string(sub);
+      char* destination = copy_string(sub);
       i++;
 
+      bool free_origin = false;
+      bool free_destination = false;
       //inserts the origin nodes
       if (graph_find_node(g, origin) == NULL) {
         graph_insert_node(g, origin);
       }
+      else
+        free_origin = true;
       //inserts the destination nodes
       if (graph_find_node(g, destination) == NULL) {
         graph_insert_node(g, destination);
       }
+      else
+        free_destination = true;
       //inserts the edges
       struct node *n1 = graph_find_node(g, origin);
       struct node *n2 = graph_find_node(g, destination);
       graph_insert_edge(g, n1, n2);
+
+      if (free_origin)
+        free(origin);
+      if (free_destination)
+        free(destination);
     }
   }
-  free(origin);
-  free(destination);
 
   //checks if number_of_edges has been given a value
   if (number_of_edges < 1)
