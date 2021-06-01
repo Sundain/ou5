@@ -195,17 +195,17 @@ graph *graph_insert_edge(graph *g, node *n1, node *n2)
 	 struct dlist *neighbours = dlist_empty(NULL);
 	 //neighbours= n->edges;
 
-	 dlist_pos pos = dlist_first(n->edges);
-	 dlist_pos pos2 = dlist_first(neighbours);
+	dlist_pos pos = dlist_first(n->edges);
+	dlist_pos pos2 = dlist_first(neighbours);
 
-	 while (!dlist_is_end(n->edges, pos)){
+	while (!dlist_is_end(n->edges, pos)){
 
 	 	dlist_insert(neighbours, dlist_inspect(n->edges,pos), pos2);
 	 	pos = dlist_next(n->edges, pos);
 	 	pos2 = dlist_next(neighbours, pos2);
 	 }
  	return neighbours;
- }
+}
 
 /**
  * graph_kill() - Destroy a given graph.
@@ -226,7 +226,7 @@ void graph_kill(graph *g)
 
 		//Deallocate the list where the nodes are saved.
 		dlist_kill(n->edges);
-
+		free(n->name);
 		// Move on to next element.
 		pos1 = dlist_next(g->nodes, pos1);
     // Deallocate the table entry structure.
