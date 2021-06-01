@@ -19,7 +19,7 @@
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
- *   2021-06-02: v2.0, memory leaks fixed
+ *   2021-06-01: v2.0, memory leaks fixed
  */
 
  /**
