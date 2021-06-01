@@ -22,6 +22,36 @@
  *   2021-05-28: v2.0, fixed memory leaks when reading the map file.
  */
 
+ /**
+ * copy_string() - Create a dynamic copy of a string.
+ * @s: String to be copied.
+ *
+ * Allocates memory for a dynamic copy of s and copies the contents of
+ * s into the copy.
+ *
+ * Returns: Pointer to the copy of s.
+ */
+char *copy_string(const char *s)
+{
+        int len=strlen(s);
+
+        /* Allocate memory for new string, with an extra char for \0 */
+        char *dest = malloc(sizeof(char)*(len+1));
+
+        /* Malloc failed, return NULL */
+        if (dest == NULL) {
+                return NULL;
+        }
+
+        /* Copy content to new memory */
+        strncpy(dest, s, len);
+
+        /* Strings should always be null terminated */
+        dest[len] = '\0';
+        return dest;
+}
+
+
  bool find_path(graph *g, node *src, node *dest)
  {
    //Creating an empty queue
@@ -63,6 +93,7 @@
              queue_dequeue(q);
            }
            queue_kill(q);
+           dlist_kill(neighbours);
            return true;
          }
          //If nodes  are not equal continue with the traversing by setting the node as seen.
@@ -75,6 +106,7 @@
        }
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
      }
+     dlist_kill(neighbours);
    }
    queue_kill(q);
 
@@ -137,7 +169,7 @@ int main(int argc, char** argv) {
         break;
       }
 
-      strcpy(origins[i], sub);    //puts in origin name
+      string_copy(origins[i], sub);    //puts in origin name
       memset(sub, 0, strlen(sub));
 
       j++;
