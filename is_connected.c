@@ -121,11 +121,11 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
   graph *g = graph_empty(100); //empty graph
+  char* origin;
+  char* destination;
 
   //string vector containing nodes connected by edges
   while (fgets(str, MAXCHAR, fp) != NULL) {
-    char* origin;
-    char* destination;
 
     if (str[0] != '#' && str[0] != ' ' && number_of_edges == -1) {
       number_of_edges = atoi(str);
@@ -176,6 +176,8 @@ int main(int argc, char** argv) {
       graph_insert_edge(g, n1, n2);
     }
   }
+  free(origin);
+  free(destination);
 
   //checks if number_of_edges has been given a value
   if (number_of_edges < 1)
