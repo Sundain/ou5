@@ -19,7 +19,6 @@
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
- *   2021-05-28: v2.0, fixed memory leaks when reading the map file.
  */
 
  /**
@@ -33,24 +32,23 @@
  */
 char *copy_string(const char *s)
 {
-        int len=strlen(s);
+  int len=strlen(s);
 
-        /* Allocate memory for new string, with an extra char for \0 */
-        char *dest = malloc(sizeof(char)*(len+1));
+  /* Allocate memory for new string, with an extra char for \0 */
+  char *dest = malloc(sizeof(char)*(len+1));
 
-        /* Malloc failed, return NULL */
-        if (dest == NULL) {
-                return NULL;
-        }
+  /* Malloc failed, return NULL */
+  if (dest == NULL) {
+    return NULL;
+  }
 
-        /* Copy content to new memory */
-        strncpy(dest, s, len);
+  /* Copy content to new memory */
+  strncpy(dest, s, len);
 
-        /* Strings should always be null terminated */
-        dest[len] = '\0';
-        return dest;
+  /* Strings should always be null terminated */
+  dest[len] = '\0';
+  return dest;
 }
-
 
  bool find_path(graph *g, node *src, node *dest)
  {
@@ -93,7 +91,6 @@ char *copy_string(const char *s)
              queue_dequeue(q);
            }
            queue_kill(q);
-           dlist_kill(neighbours);
            return true;
          }
          //If nodes  are not equal continue with the traversing by setting the node as seen.
@@ -106,7 +103,6 @@ char *copy_string(const char *s)
        }
        pos = dlist_next(neighbours,pos); //Save the position of the next element.
      }
-     dlist_kill(neighbours);
    }
    queue_kill(q);
 
@@ -124,36 +120,19 @@ int main(int argc, char** argv) {
   int i = 0;
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
-
-  //error message
-  if (error) {
-    printf("Invalid map\n");
-    exit(EXIT_FAILURE);
-  }
-
-
-  //loops until it sees a number
-  while (fgets(str, MAXCHAR, fp) != NULL) {
-    //ignors if the row starts with a # or blanck space
-    if (str[0] != '#' && str[0] != ' ') {
-      number_of_edges = atoi(str);
-      break;
-    }
-  }
-  //checks if number_of_edges have been given a value
-  if (number_of_edges < 1)
-  {
-    error = true;
-  }
+  graph *g = graph_empty(100); //empty graph
 
   //string vector containing nodes connected by edges
-  char origins[number_of_edges][41];
-  char destinations[number_of_edges][41];
+  while (fgets(str, MAXCHAR, fp) != NULL) {
+    char* origin;
+    char* destination;
 
-  //loops over the rest of the file
-  while (fgets(str, MAXCHAR, fp) != NULL && !error) {
+    if (str[0] != '#' && str[0] != ' ' && number_of_edges == -1) {
+      number_of_edges = atoi(str);
+    }
+
     //ignors rows starting with # or blanck space
-    if (str[0] != '#' && str[0] != ' ')
+    else if (str[0] != '#' && str[0] != ' ')
     {
       char sub[41]; //name holder variable
       int j = 0;
@@ -165,12 +144,11 @@ int main(int argc, char** argv) {
           error = true;
         j++;
       }
-      if (error){
+      if (error) {
         break;
       }
-
-      string_copy(origins[i], sub);    //puts in origin name
-      memset(sub, 0, strlen(sub));
+      sub[j] = '\0';
+      origin = copy_string(sub);
 
       j++;
       int k = 0;
@@ -180,11 +158,29 @@ int main(int argc, char** argv) {
         j++;
         k++;
       }
-      strcpy(destinations[i], sub); //puts in the new destination name
-      memset(sub, 0, strlen(sub));
+      sub[k] = '\0';
+      destination = copy_string(sub);
       i++;
+
+      //inserts the origin nodes
+      if (graph_find_node(g, origin) == NULL) {
+        graph_insert_node(g, origin);
+      }
+      //inserts the destination nodes
+      if (graph_find_node(g, destination) == NULL) {
+        graph_insert_node(g, destination);
+      }
+      //inserts the edges
+      struct node *n1 = graph_find_node(g, origin);
+      struct node *n2 = graph_find_node(g, destination);
+      graph_insert_edge(g, n1, n2);
     }
   }
+
+  //checks if number_of_edges has been given a value
+  if (number_of_edges < 1)
+    error = true;
+
   //checks that the indicated number of edges is correct
   if (i != number_of_edges)
     error = true;
@@ -197,33 +193,11 @@ int main(int argc, char** argv) {
 
   fclose(fp);
 
-  graph *g = graph_empty(10); //empty graph
-
-  //inserts the origin nodes
-  for (size_t i = 0; i < number_of_edges; i++) {
-    if (graph_find_node(g, origins[i]) == NULL) {
-      graph_insert_node(g, origins[i]);
-    }
-  }
-  //inserts the destination nodes
-  for (size_t i = 0; i < number_of_edges; i++) {
-    if (graph_find_node(g, destinations[i]) == NULL) {
-      graph_insert_node(g, destinations[i]);
-    }
-  }
-  //inserts the edges
-  for (size_t i = 0; i < number_of_edges; i++) {
-    struct node *n1 = graph_find_node(g, origins[i]);
-    struct node *n2 = graph_find_node(g, destinations[i]);
-    graph_insert_edge(g, n1, n2);
-  }
-
   bool loop=true;
   while (loop)
   {
-
-    char src_name[41];
-    char dest_name[41];
+    // char* src_name;
+    // char* dest_name;
     char names[2][41];
     error = false;  //reset error
     //asks for node names
@@ -239,26 +213,26 @@ int main(int argc, char** argv) {
 
     if (loop)
     {
-      strcpy(src_name, names[0]);
-      strcpy(dest_name, names[1]);
+      // src_name = copy_string(names[0]);
+      // dest_name = copy_string(names[1]);
       //checks if nodes exist
-      if (graph_find_node(g, src_name) == NULL ||
-          graph_find_node(g, dest_name) == NULL)
+      if (graph_find_node(g, names[0]) == NULL ||
+          graph_find_node(g, names[1]) == NULL)
           error = true;
 
       if (!error) {
-        struct node *src = graph_find_node(g, src_name);
-        struct node *dest = graph_find_node(g, dest_name);
+        struct node *src = graph_find_node(g,  names[0]);
+        struct node *dest = graph_find_node(g,  names[1]);
 
         bool connected = find_path(g, src, dest); //try to find a path
         //message
         if (connected)
         {
-          printf("There is a path from %s to %s.\n", src_name, dest_name);
+          printf("There is a path from %s to %s.\n",  names[0],  names[1]);
         }
         else
         {
-          printf("There is no path from %s to %s.\n", src_name, dest_name);
+          printf("There is no path from %s to %s.\n",  names[0],  names[1]);
         }
         //reset seen status between runs:
         g = graph_reset_seen(g);
