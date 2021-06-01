@@ -19,6 +19,7 @@
  *
  * Version information:
  *   2021-05-16: v1.0, first public version.
+ *   2021-06-02: v2.0, memory leaks fixed
  */
 
  /**
@@ -56,6 +57,7 @@ char *copy_string(const char *s)
    queue *q = queue_empty(NULL);
    bool seen = true;
 
+   // Are nodes the same to begin with
    if (nodes_are_equal(dest,src))
    {
      queue_kill(q);
@@ -124,19 +126,22 @@ int main(int argc, char** argv) {
   int number_of_edges = -1;
   bool error = false;         //Checks if everything works correctly
   graph *g = graph_empty(100); //empty graph
+
+  // Checks if any map were inserted
   if (argc == 1) {
     printf("No map!\n");
     exit(EXIT_FAILURE);
   }
 
-  //string vector containing nodes connected by edges
+  // Checks through the file
   while (fgets(str, MAXCHAR, fp) != NULL) {
 
+    // Reads the number of edges
     if (str[0] != '#' && str[0] != ' ' && number_of_edges == -1) {
       number_of_edges = atoi(str);
     }
 
-    //ignors rows starting with # or blanck space
+    // ignors rows starting with # or blanck space
     else if (str[0] != '#' && str[0] != ' ')
     {
       char sub[41]; //name holder variable
@@ -186,6 +191,7 @@ int main(int argc, char** argv) {
       struct node *n2 = graph_find_node(g, destination);
       graph_insert_edge(g, n1, n2);
 
+      // frees the values if not inserted
       if (free_origin)
         free(origin);
       if (free_destination)
