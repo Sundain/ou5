@@ -254,7 +254,7 @@ int main(int argc, char** argv) {
         g = graph_reset_seen(g);
       }
       else
-        printf("Invalid input\n");
+      printf("Invalid input\n");
     }
   }
   graph_kill(g);  //kill the graph
